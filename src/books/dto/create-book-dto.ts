@@ -5,8 +5,8 @@ export class CreateBookDto {
   @MinLength(1)
   title: string;
 
-  @IsString()
-  author: string;
+  @IsInt()
+  authorId: number;
 
   @IsInt()
   @Min(1000)
