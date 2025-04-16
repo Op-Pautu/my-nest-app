@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { BooksModule } from './books/books.module';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         migrations: [__dirname + '/database/migrations/*{.ts,.js}'],
         migrationsRun: true,
-        synchronize: false,
+        synchronize: true, // off in production
         logging: configService.get<string>('NODE_ENV') === 'development',
         ssl:
           configService.get<string>('DB_SSL') === 'true'
@@ -28,6 +29,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
             : false,
       }),
     }),
+    BooksModule,
   ],
 })
 export class AppModule {}
